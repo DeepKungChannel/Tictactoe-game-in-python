@@ -27,10 +27,11 @@ def tictactoe(p1:str,p2:str):
         if num == 1:
             turn = player1
             numturn = 1
+            print("{} Turn! | [O]".format(turn))
         elif num == 2:
             turn = player2
             numturn = 2
-        print("{} Turn!".format(turn))
+            print("{} Turn! | [X]".format(turn))
         gameOver = False
 
 def place(num):
@@ -43,18 +44,21 @@ def place(num):
         global board
         if num >= 1 and num <= 3:
             if board[0][num-1] != 0:
+                print(render(board))
                 print("Can't place.")
                 return
             else:
                 board[0][num-1] = numturn
         if num >= 4 and num <= 6:
             if board[1][num-4] != 0:
+                print(render(board))
                 print("Can't place.")
                 return
             else:
                 board[1][num-4] = numturn
         if num >= 7 and num <= 9:
             if board[2][num-7] != 0:
+                print(render(board))
                 print("Can't place.")
                 return
             else:
@@ -76,10 +80,11 @@ def place(num):
         if turn == player1:
             turn = player2
             numturn = 2
+            print("{} Turn! | [X]".format(turn))
         elif turn == player2:
             turn = player1
             numturn = 1
-        print("{} Turn!".format(turn))
+            print("{} Turn! | [O]".format(turn))
         return False
     else:
         print("Please start the game")
@@ -120,22 +125,29 @@ def windetect(board):
 def render(board):
     line = ''
     for i in board:
-        for y in i:
+        for index,y in enumerate(i):
             if y == 0:
                 line += ('#' + ' ')
             elif y == 1:
                 line += ('O'+' ')
             elif y == 2:
                 line += ("X"+ ' ')
+            
+            #stop print in the last
+            if index < 2:
+                line += ('| ')
         line += '\n'
+        line += "---------\n"
     return line
 
 if __name__ == '__main__':
-    print("Tictactoe Game!")
-    tictactoe('Player1','Player2')
+    print("\n\n")
+    print("Tictactoe Game!\n")
+    tictactoe('Bob','Alice')
     while True:
         try:
-            inp1 = int(input("Select : "))
+            inp1 = int(input("Select 1- 9 : "))
+            print("--------------------------\n")
             gameover = place(inp1)
             if gameover:
                 break
